@@ -25,6 +25,18 @@ class List
     end
   end
 
+  define_method(:tasks) do
+    list_tasks = []
+    tasks = DB.exec("SELECT * FROM tasks WHERE list_id = #{self.id()}")
+    tasks.each() do |task|
+      description = task.fetch('description')
+      list_id = task.fetch('list_id').to_i()
+      id = task.fetch('id').to_i()
+      list_tasks.push(Task.new({:description => description, :due_date => due_date, :list_id => list_id, :id => id}))
+    end
+    list_tasks
+  end
+  
   define_method(:save) do
     result = DB.exec("INSERT INTO lists (name) VALUES ('#{@name}') RETURNING id;")
     @id = result.first().fetch("id").to_i()

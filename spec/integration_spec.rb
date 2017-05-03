@@ -17,8 +17,7 @@ describe('viewing all of the lists', {:type => :feature}) do
     list = List.new({:name => 'Epicodus Homework', :id => 1})
     list.save()
     visit('/')
-    click_link('View All Lists')
-    expect(page).to have_content(list.name)
+    expect(page).to have_content('Epicodus Homework')
   end
 end
 
@@ -28,9 +27,9 @@ describe('seeing details for a single list', {:type => :feature}) do
     test_list.save()
     test_task = Task.new({:description => "learn SQL", :list_id => test_list.id(), :due_date => "2010-04-01"})
     test_task.save()
-    visit('/lists')
-    click_link(test_list.name())
-    expect(page).to have_content(test_task.description())
+    visit('/')
+    click_link('School stuff')
+    expect(page).to have_content('learn SQL')
   end
 end
 
@@ -40,7 +39,8 @@ describe('adding tasks to a list', {:type => :feature}) do
     test_list.save()
     visit("/")
     fill_in("description", {:with => "Learn SQL"})
+    fill_in('due_date', :with => '10-10-2010')
     click_button("Add task")
-    expect(page).to have_content("Success!")
+    expect(page).to have_content("Success")
   end
 end

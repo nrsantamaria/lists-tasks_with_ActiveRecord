@@ -12,9 +12,9 @@ get("/") do
   erb(:index)
 end
 
-get("/lists/new") do
-  erb(:list_form)
-end
+# get("/lists/new") do
+#   erb(:list_form)
+# end
 
 post("/lists") do
   name = params.fetch("name")
@@ -23,14 +23,35 @@ post("/lists") do
   erb(:success)
 end
 
-get("/lists") do
-  @lists = List.all()
-  erb(:lists)
-end
+# get("/lists") do
+#   @lists = List.all()
+#   erb(:lists)
+# end
 
 get("/lists/:id") do
   @list = List.find(params.fetch("id").to_i())
   erb(:list)
+end
+
+get("/lists/:id/edit") do
+  @list = List.find(params.fetch("id").to_i())
+  erb(:list_edit)
+end
+
+patch("/lists/:id") do
+  name = params.fetch("name")
+  @list = List.find(params.fetch("id").to_i())
+  @list.update({:name => name})
+  erb(:list)
+end
+
+# So we have added in get("/lists/:id/edit") to show us the new edit page for the list and the route patch("/lists/:id") to handle the updating of our database.
+
+delete("/lists/:id") do
+  @list = List.find(params.fetch("id").to_i())
+  @list.delete()
+  @lists = List.all()
+  erb(:index)
 end
 
 post("/tasks") do

@@ -1,0 +1,17 @@
+<h1>Update the <%=@list.name() %> list </h1>
+
+<form action="/lists/<%= @list.id() %>" method="post">
+  <input name="_method" type="hidden" value="patch">
+  <!-- The _method input is our way of communicating that, even though this form is submitted using POST, it should treat it as a PATCH request. -->
+
+  <label for="name">Rename your list:</label>
+  <input id="name" name="name" type="text">
+
+  <button type="submit">Update</button>
+</form>
+
+<form action="/lists/<%= @list.id() %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+
+  <button type="submit">Delete list</button>
+</form>

@@ -1,4 +1,6 @@
 <h1><%= @list.name() %></h1>
+<p><a href="/lists/<%= @list.id() %>/edit">Edit <%= @list.name() %> list</a></p>
+<p><a href="/">Return to Main Page</a></p>
 
 <% if @list.tasks(@list.id()).any?() %>
   <h3>Here are all the tasks in this list:</h3>
@@ -17,7 +19,4 @@
 
 <div class="container">
   <a href="/">Home</a>
-  <a href="/lists">View All Lists</a>
-  <a href="/lists/new">Add New List</a>
-  <a href="/lists/new">Add New Task</a>
 </div>

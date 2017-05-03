@@ -8,7 +8,7 @@ require'pg'
 DB = PG.connect({:dbname => "to_do"})
 
 get("/") do
-  # @tasks = Task.all()
+  @lists = List.all()
   erb(:index)
 end
 
@@ -33,10 +33,12 @@ get("/lists/:id") do
   erb(:list)
 end
 
-#
-# post("/tasks") do
-#   description = params.fetch("description")
-#   task = Task.new({:description => description})
-#   task.save()
-#   erb(:success)
-# end
+post("/tasks") do
+  description = params.fetch("description")
+  list_id = params.fetch('list_id').to_i
+  due_date = params.fetch('due_date')
+  @list = List.find(list_id)
+  @task = Task.new({:description => description, :list_id => list_id, :due_date => due_date})
+  @task.save()
+  erb(:success)
+end

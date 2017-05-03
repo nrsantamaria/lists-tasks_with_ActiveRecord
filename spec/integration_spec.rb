@@ -6,9 +6,8 @@ set(:show_exceptions, false)
 describe('adding a new list', {:type => :feature}) do
   it('allows a user to click a list to see the task and details for it') do
     visit('/')
-    click_link('Add New List')
     fill_in('name', :with => 'Epicodus Work')
-    click_button('Add List')
+    click_button('Add list')
     expect(page).to have_content('Success!')
   end
 end
@@ -32,5 +31,16 @@ describe('seeing details for a single list', {:type => :feature}) do
     visit('/lists')
     click_link(test_list.name())
     expect(page).to have_content(test_task.description())
+  end
+end
+
+describe('adding tasks to a list', {:type => :feature}) do
+  it('allows a user to add a task to a list') do
+    test_list = List.new({:name => 'School stuff', :id => 1})
+    test_list.save()
+    visit("/")
+    fill_in("description", {:with => "Learn SQL"})
+    click_button("Add task")
+    expect(page).to have_content("Success!")
   end
 end

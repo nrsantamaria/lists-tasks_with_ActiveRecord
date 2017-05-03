@@ -45,7 +45,7 @@ describe(List) do
       test_list.save
       test_list2 = List.new({:name => 'Home stuff', :id => nil})
       test_list2.save
-      expect(List.find(test_list2.id()).to(eq(test_list2)))
+      expect(List.find(test_list2.id())).to(eq(test_list2))
     end
   end
 
@@ -53,11 +53,11 @@ describe(List) do
     it("returns an array of tasks for that list") do
       test_list = List.new({:name => "Epicodus stuff", :id => nil})
       test_list.save()
-      test_task = Task.new({:description => "Learn SQL", :list_id => test_list.id()})
+      test_task = Task.new({:description => "Learn SQL", :due_date => '10-10-2010', :list_id => test_list.id()})
       test_task.save()
-      test_task2 = Task.new({:description => "Review Ruby", :list_id => test_list.id()})
+      test_task2 = Task.new({:description => "Review Ruby", :due_date => '10-10-2010', :list_id => test_list.id()})
       test_task2.save()
-      expect(test_list.tasks()).to(eq([test_task, test_task2]))
+      expect(test_list.tasks(test_list.id())).to(eq([test_task, test_task2]))
     end
   end
 end

@@ -3,8 +3,8 @@ class Task
 
   define_method(:initialize) do |attributes|
     @description = attributes.fetch(:description)
-    @list_id = attributes.fetch(:list_id)
     @due_date = attributes.fetch(:due_date)
+    @list_id = attributes.fetch(:list_id)
   end
 
   define_singleton_method(:all) do
@@ -36,6 +36,7 @@ class Task
   end
 
   define_method(:==) do |another_task|
-    self.description().==(another_task.description()).&(self.due_date().==(another_task.due_date())).&(self.list_id().==(another_task.list_id()))
+    # self.description().==(another_task.description()).&(self.due_date().==(another_task.due_date())).&(self.list_id().==(another_task.list_id()))
+    self.description().==(another_task.description()).&(self.list_id().==(another_task.list_id()))
   end
 end
